@@ -9,7 +9,7 @@ import { ProvidersModule } from './providers/providers.module';
   imports: [AppModule, ConfigModule, AuthModule, ProvidersModule],
   controllers: [],
   providers: [],
-  exports: [],
+  exports: [ConfigModule],
 })
 export class AppModule {
   static port: number | string;

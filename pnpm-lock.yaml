@@ -19,7 +19,6 @@ specifiers:
   '@types/supertest': ^2.0.11
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.0.0
-  app-root-path: ^3.1.0
   bcrypt: ^5.1.0
   class-transformer: ^0.5.1
   class-validator: ^0.14.0
@@ -52,7 +51,6 @@ dependencies:
   '@nestjs/platform-express': 9.2.1_hjcqpoaebdr7gdo5hgc22hthbe
   '@nestjs/typeorm': 9.0.1_hkapd3a3mi37wyf4vtt5y4i2ye
   '@types/bcrypt': 5.0.0
-  app-root-path: 3.1.0
   bcrypt: 5.1.0
   class-transformer: 0.5.1
   class-validator: 0.14.0
