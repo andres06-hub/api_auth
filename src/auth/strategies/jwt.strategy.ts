@@ -6,6 +6,8 @@ import { key } from 'src/config/key.config';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth.service';
 import { User } from 'src/models/user.entity';
+import { JwtPayload } from '../interfaces/jwt';
+import { Response } from 'src/common/interfaces/response';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -21,12 +23,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
   private logger = new Logger();
 
-  async validate(payload: any) {
+  async validate(payload: JwtPayload) {
     this.logger.log('VALIDATION JWT ', payload);
     const { id } = payload;
     const user: User | null | false = await this._authSrv.findOneById(id);
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException(new Response(false, 'Unauthorized'));
     }
     return user;
   }
