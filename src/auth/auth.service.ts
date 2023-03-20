@@ -13,8 +13,8 @@ import { User } from 'src/models/user.entity';
 import { DataSignUp } from './dto/signUp.dto';
 import { BcryptService } from 'src/common/services/bcrypt/bcrypt.service';
 import { JwtService } from '@nestjs/jwt';
-import { Response } from './dto/response';
 import { HttpError } from 'src/common/interfaces/error.interface';
+import { Response } from 'src/common/interfaces/response';
 
 @Injectable()
 export class AuthService {
@@ -29,8 +29,8 @@ export class AuthService {
   // eslint-disable-next-line prettier/prettier
   async login(email: string, password: string): Promise<Response> {
     const findUser: User | null | false = await this.findOneByMail(email);
-    if (findUser === null || findUser === false)
-      throw new NotFoundException(new Response(false, 'Not Found!')); // NOt found
+    if (findUser === null)
+      throw new NotFoundException(new Response(true, 'User Not Found!')); // NOt found
     this.logger.log('User Exists!');
     //Validate pass
     const pwd: boolean = await this._bcryptSrv.unencrypt(
@@ -56,12 +56,12 @@ export class AuthService {
     const found: User | boolean | null = await this.findOneByMail(data.email);
     if (found) {
       this.logger.warn('The user exists!');
-      return new Response(false, 'user exists!');
+      return new Response(true, 'user exists!');
     }
-    if (found === false)
-      throw new InternalServerErrorException(
-        'ERROR: When searching for the user',
-      );
+    // if (found === false)
+    //   throw new InternalServerErrorException(
+    //     'ERROR: When searching for the user',
+    //   );
     return this.createUser(data);
   }
 
@@ -78,7 +78,7 @@ export class AuthService {
     return new Response(true, 'User created successfully', { newUser });
   }
 
-  async findOneByMail(email: string): Promise<User | null | false> {
+  async findOneByMail(email: string): Promise<User | null> {
     try {
       this.logger.log('looking for user...');
       const findUser: User | null = await this.userRpt.findOne({
@@ -94,7 +94,7 @@ export class AuthService {
     }
   }
 
-  async findOneById(id: number): Promise<User | null | false> {
+  async findOneById(id: number): Promise<User | null> {
     try {
       this.logger.log('looking for user...');
       const findUser: User | null = await this.userRpt.findOne({
