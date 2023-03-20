@@ -1,0 +1,20 @@
+version: '3'
+volumes:
+  db-api-auth:
+
+services:
+  apiAuth:
+    image: mysql:8
+    container_name: apiAuth
+    environment:
+        - MYSQL_DATABASE=apiauth_db
+        - MYSQL_ROOT_PASSWORD=12345
+    ports:
+        - 3306:3306
+    volumes: 
+      - db-api-auth:/var/lib/mysql
+    healthcheck: 
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      timeout: 20s
+      retries: 10
+    restart: always
