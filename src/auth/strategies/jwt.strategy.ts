@@ -10,7 +10,7 @@ import { IJwtPayload } from '../interfaces/jwt';
 import { Response } from 'src/common/interfaces/response';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
     _configSrv: ConfigService,
     private readonly _authSrv: AuthService,
