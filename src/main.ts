@@ -6,6 +6,7 @@ async function bootstrap() {
     logger: ['log', 'error', 'warn', 'verbose'],
   });
   app.setGlobalPrefix(AppModule.prefix);
-  await app.listen(AppModule.port);
+  await app.listen(AppModule.port, '0.0.0.0');
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
