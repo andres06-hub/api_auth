@@ -1,10 +1,8 @@
 import {
   BadRequestException,
   ForbiddenException,
-  HttpException,
   Inject,
   Injectable,
-  InternalServerErrorException,
   Logger,
   NotFoundException,
 } from '@nestjs/common';
@@ -58,10 +56,6 @@ export class AuthService {
       this.logger.warn('The user exists!');
       return new Response(true, 'user exists!');
     }
-    // if (found === false)
-    //   throw new InternalServerErrorException(
-    //     'ERROR: When searching for the user',
-    //   );
     return this.createUser(data);
   }
 
