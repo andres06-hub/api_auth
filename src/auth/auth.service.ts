@@ -39,7 +39,6 @@ export class AuthService {
       throw new ForbiddenException(
         new Response(false, 'Incorrect credentials'),
       );
-    console.log(pwd);
     //Create JWT
     const payload = {
       id: findUser.id,
